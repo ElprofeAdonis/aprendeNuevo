@@ -34,6 +34,17 @@ app.get(`/song/:id`, async (req, res) => {
   });
 });
 
+//* 3. Creates a new artist.
+app.post(`/artist`, async (req, res) => {
+    const result = await prisma.artist.create({
+        data: { ...req.body },
+    })
+    res.json({
+        success: true,
+        payload: result,
+    })
+})
+
 app.use((req, res, next) => {
   res.status(404);
   return res.json({
