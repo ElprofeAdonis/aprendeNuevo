@@ -23,6 +23,17 @@ app.get("/artists", async (req, res) => {
   });
 });
 
+app.get(`/song/:id`, async (req, res) => {
+  const { id } = req.params;
+  const song = await prisma.song.findFirst({
+    where: { id: Number(id) },
+  });
+  res.json({
+    success: true,
+    payload: song,
+  });
+});
+
 app.use((req, res, next) => {
   res.status(404);
   return res.json({
